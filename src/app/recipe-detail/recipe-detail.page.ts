@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { RecipesService } from '../recipes/recipes.service';
+import { Recipe } from '../recipes/recipe.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -7,17 +9,25 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./recipe-detail.page.scss'],
 })
 export class RecipeDetailPage implements OnInit {
-  recipeId = '';
-  title = '';
+loadedRecipe: Recipe;
+
+  // recipeId = '';
+  // title = '';
   // nak gunakan value kena masukkan dalam constructor
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private recipeService: RecipesService,
   ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(paramMap => {
-      this.recipeId = paramMap.get('recipeId');
-      this.title = paramMap.get('title');
+      // this.recipeId = paramMap.get('recipeId');
+      // this.title = paramMap.get('title');
+      if (!paramMap.has('recipeId')) {
+        return;
+      }
+      const recipeId = paramMap.get('recipeId');
+      this.loadedRecipe = this.recipeService.getRecipe(recipeId);
     });
   }
 

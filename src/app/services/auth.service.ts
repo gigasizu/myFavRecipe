@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   isLoggedIn = false;
   token: any;
@@ -18,7 +19,7 @@ export class AuthService {
   ) { }
 
   login(email: string, password: string) {
-    return this.http.post('http://recipe.test/api/auth/login',
+    return this.http.post(this.env.API_URL + 'auth/login',
     {email, password}
     ).pipe(
       tap(
@@ -36,5 +37,12 @@ export class AuthService {
         }
       ),
     );
+  }
+
+  register(fName: string, lName: string, email: string, password: string) {
+    return this.http.post(this.env.API_URL + 'htt[\p://recipes.test/auth/register',
+    {fName, lName, email, password}
+    );
+
   }
 }

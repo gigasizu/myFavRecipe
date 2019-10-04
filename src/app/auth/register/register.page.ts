@@ -15,4 +15,7 @@ export class RegisterPage implements OnInit {
   register(form) {
     }
 
+  loginModal() {
+  }
+
 }
